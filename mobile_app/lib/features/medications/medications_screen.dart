@@ -2,26 +2,22 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../models/medication.dart';
+
 final Random _random = Random();
 
 class MedicationsScreen extends StatefulWidget {
   const MedicationsScreen({super.key});
   static const int n = 10;
-  static List<String> medications = List.generate(
-    n,
-    (index) => 'Medication ${index + 1}',
-  );
-  static List<String> dosages = List.generate(
-    n,
-    (index) => '${(index + 1) * 10} mg',
-  );
-  static List<String> times = List.generate(
-    n,
-    (index) => _random.nextInt(24).toString(),
-  );
-  static List<List<bool>> frequencies = List.generate(
-    n,
-    (index) => List.generate(7, (day) => _random.nextBool()),
+  static List<Medication> medicationList = List.generate(
+    10,
+    (index) => Medication(
+      id: index.toString(),
+      name: 'Medication ${index + 1}',
+      dosage: '${(index + 1) * 10} mg',
+      time: _random.nextInt(24).toString(),
+      frequency: List.generate(7, (day) => _random.nextBool()),
+    ),
   );
 
   @override
@@ -34,7 +30,7 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Medications')),
       body: ListView.builder(
-        itemCount: MedicationsScreen.medications.length,
+        itemCount: MedicationsScreen.medicationList.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(
@@ -49,18 +45,18 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
               ),
               tileColor: Colors.blueAccent,
               title: Text(
-                MedicationsScreen.medications[index],
+                MedicationsScreen.medicationList[index].name,
                 style: const TextStyle(color: Colors.white, fontSize: 24),
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Dosage: ${MedicationsScreen.dosages[index]}",
+                    "Dosage: ${MedicationsScreen.medicationList[index].dosage}",
                     style: const TextStyle(color: Colors.white70, fontSize: 16),
                   ),
                   Text(
-                    "Time: ${int.parse(MedicationsScreen.times[index]) % 12 == 0 ? 12 : (int.parse(MedicationsScreen.times[index]) % 12).toString()} ${int.parse(MedicationsScreen.times[index]) < 12 ? 'AM' : 'PM'}",
+                    "Time: ${int.parse(MedicationsScreen.medicationList[index].time) % 12 == 0 ? 12 : (int.parse(MedicationsScreen.medicationList[index].time) % 12).toString()} ${int.parse(MedicationsScreen.medicationList[index].time) < 12 ? 'AM' : 'PM'}",
                     style: const TextStyle(color: Colors.white70, fontSize: 16),
                   ),
                   Row(
@@ -74,49 +70,56 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
                       ),
                       Icon(
                         Icons.circle,
-                        color: MedicationsScreen.frequencies[index][0]
+                        color:
+                            MedicationsScreen.medicationList[index].frequency[0]
                             ? Colors.greenAccent
                             : Colors.redAccent,
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: MedicationsScreen.frequencies[index][1]
+                        color:
+                            MedicationsScreen.medicationList[index].frequency[1]
                             ? Colors.greenAccent
                             : Colors.redAccent,
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: MedicationsScreen.frequencies[index][2]
+                        color:
+                            MedicationsScreen.medicationList[index].frequency[2]
                             ? Colors.greenAccent
                             : Colors.redAccent,
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: MedicationsScreen.frequencies[index][3]
+                        color:
+                            MedicationsScreen.medicationList[index].frequency[3]
                             ? Colors.greenAccent
                             : Colors.redAccent,
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: MedicationsScreen.frequencies[index][4]
+                        color:
+                            MedicationsScreen.medicationList[index].frequency[4]
                             ? Colors.greenAccent
                             : Colors.redAccent,
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: MedicationsScreen.frequencies[index][5]
+                        color:
+                            MedicationsScreen.medicationList[index].frequency[5]
                             ? Colors.greenAccent
                             : Colors.redAccent,
                         size: 15,
                       ),
                       Icon(
                         Icons.circle,
-                        color: MedicationsScreen.frequencies[index][6]
+                        color:
+                            MedicationsScreen.medicationList[index].frequency[6]
                             ? Colors.greenAccent
                             : Colors.redAccent,
                         size: 15,
