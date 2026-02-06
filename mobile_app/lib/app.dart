@@ -12,7 +12,7 @@ class MedTrackApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MedTrack',
-      theme: _buildTheme(),
+      theme: AppTheme.lightTheme,
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
